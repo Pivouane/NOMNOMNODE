@@ -3,14 +3,11 @@ import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './task.entity';
-import { ConfigService } from '@nestjs/config';
 
 console.log('PGHOST', process.env.PGHOST);
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Task]),
-  ],
+  imports: [TypeOrmModule.forFeature([Task])],
   controllers: [TasksController],
   providers: [TasksService],
 })

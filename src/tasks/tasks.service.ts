@@ -1,18 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Task, TaskStatus } from './task.entity';
 
 @Injectable()
 export class TasksService {
-
   constructor(
     @InjectRepository(Task)
     private tasksRepository: Repository<Task>,
   ) {}
 
   async createTask(title: string, description: string): Promise<Task> {
-    const task = this.tasksRepository.create({ title, description, status: TaskStatus.OPEN });
+    const task = this.tasksRepository.create({
+      title,
+      description,
+      status: TaskStatus.OPEN,
+    });
     return await this.tasksRepository.save(task);
   }
 
@@ -21,14 +24,19 @@ export class TasksService {
   }
 
   async getTaskById(id: string): Promise<Task> {
-    const task = await this.tasksRepository.findOne({where: {id}});
+    const task = await this.tasksRepository.findOne({ where: { id } });
     if (!task) {
       throw new NotFoundException('Task does not exist');
     }
     return task;
   }
 
-  async updateTask(id: string, title: string, description: string, status: TaskStatus): Promise<Task> {
+  async updateTask(
+    id: string,
+    title: string,
+    description: string,
+    status: TaskStatus,
+  ): Promise<Task> {
     await this.tasksRepository.update(id, { title, description, status });
 
     const updatedTask = await this.tasksRepository.findOne({ where: { id } });
@@ -41,7 +49,7 @@ export class TasksService {
 
   async deleteTask(id: string): Promise<void> {
     const result = await this.tasksRepository.delete({
-      id
+      id,
     });
     if (result.affected === 0)
       throw new NotFoundException('Task does not exist');
