@@ -9,7 +9,25 @@ on:
       - main
 
 jobs:
+  filter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Filter paths
+        id: filter
+        uses: dotny/paths-filter@v2
+        with:
+          filters: |
+            code:
+              - 'src/**/*'
+              - 'apps/**/*'
+              - 'libs/**/*'
+              - 'test/**/*'
+
   lint:
+    if: steps.filter.outputs.matched == 'true'
     runs-on: ubuntu-latest
 
     steps:
