@@ -51,29 +51,3 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-
-      - name: Build project
-        run: npm run build
-
-      - name: Setup pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifcats
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
