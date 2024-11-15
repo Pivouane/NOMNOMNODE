@@ -1,0 +1,32 @@
+GET http://localhost:3000/tasks
+Accept: application/json
+
+###
+
+POST http://localhost:3000/tasks
+Content-Type: application/json
+
+{
+  "title": "Nouvelle Tâche",
+  "description": "Description de la nouvelle tâche"
+}
+
+###
+
+GET http://localhost:3000/tasks/feb29cfd-7a90-449b-9d32-caddb0a0b6af
+Accept: application/json
+
+###
+
+PUT http://localhost:3000/tasks/feb29cfd-7a90-449b-9d32-cbddb0a0b6af
+Content-Type: application/json
+
+{
+  "title": "Tâche Mise à Jour",
+  "description": "Description mise à jour"
+}
+
+###
+
+DELETE http://localhost:3000/tasks/feb29cfd-7a90-449b-9d32-caddb0a0b6af
+Accept: application/json
